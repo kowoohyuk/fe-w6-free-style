@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+[class^=col] {
+  float: left;
+  position: relative;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} { width: $COLUMNWIDTH * $i; }
+}
+
+@for $i from 10 through 24 {
+  %fs-#{$i} { font-size: 1px * $i; }
+}
+
+@for $i from 3 through 9 {
+  %fw-#{$i} { font-weight: 100 * $i; }
+}

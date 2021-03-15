@@ -1,0 +1,120 @@
+main {
+  padding: 3rem;
+}
+.wrap {
+  position: relative;
+  min-height: 80vh;
+}
+
+.item {
+  position: absolute;
+  display: flex;
+  padding: 0.5rem;
+  border: 0.2rem solid #333;
+  border-radius: 3px;
+  width: 12rem;
+  cursor: pointer;
+  height: 3.5rem;
+  align-items: center;
+  div {
+    text-align: center;
+    width: 100%;
+  }
+  &.on-search {
+    font-weight: 600;
+    animation: ani-twincle infinite 0.7s linear;
+  }
+  &:hover {
+    animation: ani-shake infinite 0.15s linear 0.5s;
+  }
+  &-file::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    position: absolute;
+    top: -30px;
+    right: 0;
+    background-image: url(./images/file.png);
+  }
+}
+
+.line {
+  width: 6rem;
+  border-bottom: 1px solid #333;
+  position: absolute;
+  left: 12rem;
+  top: 1.5rem;
+}
+
+.content-view {
+  position: fixed;
+  font-size: 0.9rem;
+  top: 5rem;
+  right: -20vw;
+  width: 20vw;
+  border: 2px solid #333;
+  border-right: 0px;
+  padding: 2rem;
+  height: 70vh;
+  line-height: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+  &.active {
+    right: 0vw;
+    opacity: 1;
+  }
+  & > div {
+    height: 70vh;
+    overflow-y: auto;
+  }
+  button {
+    @extend %fw-6;
+    @extend %fs-18;
+    position: absolute;
+    left: calc(-3rem - 1px);
+    width: 3rem;
+    outline: none;
+    background: #fff;
+    top: -2px;
+    height: 3rem;
+    border: 2px solid #333;
+    border-right-width: 1px;
+    cursor: pointer;
+  }
+  h3 {
+    @extend %fw-6;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@keyframes ani-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes ani-twincle {
+  0% {
+    border-color: #333;
+  }
+  50% {
+    border-color: #aaa;
+  }
+  100% {
+    border-color: #333;
+  }
+}
