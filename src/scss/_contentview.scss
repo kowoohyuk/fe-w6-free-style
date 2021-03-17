@@ -1,0 +1,41 @@
+.content-view {
+  position: fixed;
+  font-size: 0.9rem;
+  top: 5rem;
+  right: -20vw;
+  width: 20vw;
+  border: 2px solid #333;
+  border-right: 0px;
+  padding: 2rem;
+  height: 70vh;
+  line-height: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+  &.active {
+    right: 0vw;
+    opacity: 1;
+  }
+  & > div {
+    max-height: inherit;
+    overflow-y: auto;
+  }
+  button {
+    @extend %fw-6;
+    @extend %fs-18;
+    position: absolute;
+    left: calc(-3rem - 1px);
+    width: 3rem;
+    outline: none;
+    background: #fff;
+    top: -2px;
+    height: 3rem;
+    border: 2px solid #333;
+    border-right-width: 1px;
+    cursor: pointer;
+  }
+  h3 {
+    @extend %fw-6;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}

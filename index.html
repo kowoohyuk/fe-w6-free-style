@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Page Title</title>
+  <title>메모트리</title>
   <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
   <link rel='stylesheet' type='text/css' media='screen' href='main.scss'>
 </head>
@@ -18,48 +18,13 @@
     <div class="header__button">
       <input id="searchInput" type="text" placeholder="검색">
       <button id="shareButton">공유하기</button>
-      <button id="shareButton">저장하기</button>
+      <button id="saveButton">저장하기</button>
     </div>
   </header>
   <main>
-    <div class="wrap" id="itemWrap">
-      <div class="item item-folder" data-name="프론트엔드">
-        <div class="">프론트엔드</div>
-      </div>
-      <div class="line"></div>
-      <div class="item item-folder" data-name="자바스크립트" style="left: 18rem;">
-        <div class="">자바스크립트</div>
-      </div>
-      <div class="line" style="top: 7.5rem;
-      width: 3rem;
-      left: 15rem;"></div>
-      <div class="line" style="transform: rotate(
-        90deg
-        );
-            top: 4.5rem;"></div>
-      <div class="item item-folder" data-name="HTML" style="left: 18rem; top: 6rem;">
-        <div class="">HTML</div>
-      </div>
-      <div class="line" style="left: 30rem;"></div>
-      <div class="item item-file" style="left: 36rem;" data-name="참고 사이트" data-content="MDN : https://developer.mozilla.org/ko/\r\nJAVASCRIPT INFO : https://ko.javascript.info/\r\n제로초 : https://www.zerocho.com/\r\n포이에마웹 : https://poiemaweb.com/" data-depth="2" data-index="0">
-        <div class="">참고 사이트</div>
-      </div>
-      <!-- 
-      <div class="line"></div>
-      <div class="item-file">
-        <div class="">HTML</div>
-      </div>
-      <div class="line"></div>
-      <div class="item-file">
-        <div class="">CSS</div>
-      </div> -->
+    <div class="wrap" id="itemTarget">
     </div>
-    <div id="contentView" class="content-view">
-      <button>X</button>
-      <div class="text">
-
-      </div>
-    </div>
+    <div id="contentview" class="content-view"></div>
   </main>
   <script type="module" src='main.js'></script>
 </body>
