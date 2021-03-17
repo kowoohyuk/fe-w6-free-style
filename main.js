@@ -1,100 +1,34 @@
 import Contextmenu from './src/javascript/contextmenu.js';
+import Contentview from './src/javascript/contentview.js';
+import Item from './src/javascript/item.js';
 
 const init = () => {
-  const itemWrap = document.getElementById('itemWrap');
+  const itemTarget = document.getElementById('itemTarget');
   const searchInput = document.getElementById('searchInput');
-  const contentView = document.getElementById('contentView');
-  const contextMenu = new Contextmenu(itemWrap);
-  window.addEventListener('click', ({ target }) => handlePopup(target));
-  window.addEventListener('contextmenu', ({ target }) => handlePopup(target));
-  // const handleRClick = e => {
-  //   if(e.target.closest('.item')) {
+  const contentview = document.getElementById('contentview');
+  const saveButton = document.getElementById('saveButton');
+  const contextMenu = new Contextmenu(itemTarget);
+  const contentView = new Contentview(contentview);
+  
+  let cache = getData();
+  if(!cache) cache = setData();
+  const cacheItem = JSON.parse(cache);
+  cacheItem.target = itemTarget;
+  cacheItem.menu = contextMenu;
+  cacheItem.view = contentView;
+  const item = new Item(cacheItem);
 
-  //   }
-  // }
-  contentView.firstElementChild.addEventListener('click', () => {
-    contentView.classList.remove('active');
-  });
-  itemWrap.addEventListener('dblclick', ({ target }) => handleDBClick(target));
-  const handleDBClick = target => {
-    const file = target.closest('.item-file');
-    if(file) {
-      const obj = { ...file.dataset };
-      console.log(obj);
-      contentView.lastElementChild.innerHTML = '';
-      contentView.lastElementChild.innerHTML += '<h3>' + obj.name + '</h3>';
-      contentView.lastElementChild.innerHTML += obj.content.replace(/\\r\\n/g, '<br>');
-      contentView.classList.add('active');
-    }
-  }
   const handlePopup = target => {
     if(!target.closest('.popup')) {
       document.querySelectorAll('.popup').forEach(v => v.classList.add('hidden'));
     }
-  }
-
-  const testData = {
-    _id: 'blabla',
-    type: 'folder',
-    author: '*',
-    name: '프론트엔드',
-    content: '',
-    parent: '', // 이거 고민..
-    status: 1,
-    index: 0,
-    depth: 0,
-    color: '#000',
-    bg_color: '#fff',
-    bd_color: '#000',
-    childs: [
-      {
-        type: 'folder',
-        author: '*',
-        name: '자바스크립트',
-        content: '',
-        status: 1,
-        index: 0,
-        depth: 1,
-        color: '#000',
-        bg_color: '#fff',
-        bd_color: '#000',
-        childs: [
-          {
-            type: 'file',
-            author: '*',
-            name: '참고 사이트',
-            content: 'MDN : https://developer.mozilla.org/ko/\r\nJAVASCRIPT INFO : https://ko.javascript.info/\r\n제로초 : https://www.zerocho.com/\r\n포이에마웹 : https://poiemaweb.com/',
-            status: 1,
-            index: 0,
-            depth: 2,
-            color: '#000',
-            bg_color: '#fff',
-            bd_color: '#000',
-            childs: []
-          }
-        ]
-      },
-      {
-        type: 'folder',
-        author: '*',
-        name: 'HTML',
-        content: '',
-        status: 1,
-        index: 1,
-        depth: 1,
-        color: '#000',
-        bg_color: '#fff',
-        bd_color: '#000',
-      }
-    ],
   };
-  // localStorage.setItem('memotree', JSON.stringify(testData));
-  // console.log(JSON.parse(localStorage.getItem('memotree')));
+
   const searchItem = target => {
     if(target.value === '') return;
-    const list = document.querySelectorAll('.item');
+    const list = document.querySelectorAll('.item__tag');
     list.forEach(v => {
-      if(v.dataset.name.includes(target.value)) {
+      if(v.value.includes(target.value)) {
         v.classList.add('on-search');
       } else {
         v.classList.remove('on-search');
@@ -102,6 +36,23 @@ const init = () => {
     });
   };
   searchInput.addEventListener('keyup', ({ target }) => searchItem(target));
-}
+
+  window.addEventListener('click', ({ target }) => handlePopup(target));
+  window.addEventListener('contextmenu', ({ target }) => handlePopup(target));
+};
+
+const getData = () => localStorage.getItem('memotree');
+const setData = () => {
+  const testData = {
+    _id: null,
+    type: 'folder',
+    author: '*',
+    name: '제목 없음',
+    parent: null,
+    status: 1,
+  };
+  localStorage.setItem('memotree', JSON.stringify(testData));
+  return localStorage.getItem('memotree');
+};
 
 init();
