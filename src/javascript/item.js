@@ -85,4 +85,16 @@ export default class Item {
     }
     this.node.remove();
   }
+  toObject() {
+    return {
+      _id: this._id,
+      type: this.type,
+      author: this.author,
+      name : this.name,
+      border_color : this.border_color,
+      color : this.color,
+      bg_color : this.bg_color,
+      content : this.content,
+    };
+  }
 }

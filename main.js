@@ -39,11 +39,12 @@ const init = () => {
 
   window.addEventListener('click', ({ target }) => handlePopup(target));
   window.addEventListener('contextmenu', ({ target }) => handlePopup(target));
+  saveButton.addEventListener('click', () => saveData(item));
 };
 
 const getData = () => localStorage.getItem('memotree');
 const setData = () => {
-  const testData = {
+  const defaultData = {
     _id: null,
     type: 'folder',
     author: '*',
@@ -51,8 +52,17 @@ const setData = () => {
     parent: null,
     status: 1,
   };
-  localStorage.setItem('memotree', JSON.stringify(testData));
+  localStorage.setItem('memotree', JSON.stringify(defaultData));
   return localStorage.getItem('memotree');
 };
+const saveData = item => {
+  const dfs = item => {
+    if(!item) return;
+    const result = item.toObject();
+    result.childs = item.childs.map(v => dfs(v));
+    return result;
+  };
+  localStorage.setItem('memotree', JSON.stringify(dfs(item)));
+}
 
 init();
