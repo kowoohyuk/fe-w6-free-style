@@ -148,13 +148,13 @@ class Contextmenu {
       fn: () => this.addFile()
     }, {
       name: '글자 색상변경',
-      fn: () => this.updateColor()
+      fn: e => this.showColorPicker(e)
     }, {
       name: '배경 색상변경',
-      fn: () => this.updateBgColor()
+      fn: e => this.showColorPicker(e)
     }, {
       name: '테두리 색상변경',
-      fn: () => this.updateBdColor()
+      fn: e => this.showColorPicker(e)
     }, {
       name: '삭제',
       fn: () => this.deleteItem()
@@ -167,39 +167,63 @@ class Contextmenu {
     ul.insertAdjacentHTML('beforeend', this.menu.reduce((acc, item, index) => acc += "<li data-index=\"".concat(index, "\">").concat(item.name, "</li>"), ''));
     this.target.append(ul);
     this.self = ul;
+    this.renderColorPicker();
+  }
+
+  renderColorPicker() {
+    const colors = ['black', 'gray', 'skyblue', 'forestgreen', 'red', 'violet', 'sienna'];
+    this.target.insertAdjacentHTML('beforeend', colors.reduce((acc, cur) => acc += "<span class=\"color\" data-color=\"".concat(cur, "\" style=\"background-color:").concat(cur, "\";></span>"), '<div class="color-picker hidden">') + '</div>');
+    this.colorPicker = this.target.lastElementChild;
   }
 
   createEvent() {
-    this.self.addEventListener('click', e => this.handleMenuEvent(e.target.dataset.index));
+    this.self.addEventListener('click', e => this.handleMenuEvent(e));
+    this.colorPicker.addEventListener('click', e => this.handleColor(e));
   }
 
-  handleMenuEvent(index) {
-    this.menu[index].fn();
-    this.hideFileContext();
+  handleMenuEvent(e) {
+    const index = e.target.dataset.index;
+    this.menu[index].fn(e);
   }
 
   addFolder() {
     this.selected.addChild('folder');
+    this.hideFileContext();
   }
 
   addFile() {
     this.selected.addChild('file');
+    this.hideFileContext();
   }
 
-  updateColor() {
-    alert('만들고 있어요...');
-  }
+  handleColor(e) {
+    const color = e.target.dataset.color;
 
-  updateBgColor() {
-    alert('만들고 있어요...');
-  }
+    switch (this.colorPicker.dataset.index) {
+      case '2':
+        this.selected.color = color;
+        break;
 
-  updateBdColor() {
-    alert('만들고 있어요...');
+      case '3':
+        this.selected.bg_color = color;
+        break;
+
+      case '4':
+        this.selected.border_color = color;
+        break;
+
+      default:
+        break;
+    }
+
+    ;
+    this.selected.setStyles();
+    this.hideColorPicker();
   }
 
   deleteItem() {
     this.selected.delete();
+    this.hideFileContext();
   }
 
   openMenu(e, target) {
@@ -224,6 +248,20 @@ class Contextmenu {
 
   hideFileContext() {
     this.self.classList.add('hidden');
+    this.colorPicker.classList.add('hidden');
+  }
+
+  showColorPicker(e) {
+    const left = Number(this.self.style.left.replace('px', '')) + Number(this.self.getBoundingClientRect().width);
+    const top = Number(this.self.style.top.replace('px', '')) + Number(this.self.childNodes[0].getBoundingClientRect().height * e.target.dataset.index);
+    this.colorPicker.dataset.index = e.target.dataset.index;
+    this.colorPicker.style.left = left + 'px';
+    this.colorPicker.style.top = top + 'px';
+    this.colorPicker.classList.remove('hidden');
+  }
+
+  hideColorPicker() {
+    this.colorPicker.classList.add('hidden');
   }
 
 }
@@ -454,7 +492,7 @@ class Item {
       target: this.node.lastElementChild,
       menu: this.menu,
       author: this.author,
-      name: '이름 없음',
+      name: '',
       parent: this,
       view: this.view,
       canvas: this.canvas,
@@ -482,7 +520,8 @@ class Item {
     }
 
     this.node.remove();
-    this.parent.drawingLine();
+    this.updatePosition();
+    this.drawingLine();
   }
 
   toObject() {
@@ -678,7 +717,7 @@ const shareData = async item => {
     }
   });
   const id = await result.json();
-  alert(id);
+  alert('새로운 주소가 생성되었습니다!');
   location.href = location.origin + '/' + id;
 };
 
@@ -711,7 +750,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60776" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
