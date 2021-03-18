@@ -19,7 +19,6 @@ const init = async () => {
   let rootNode = null;
   if(treeId.length > 0) {
     const result = await fetch(`/memotree/${treeId}`);
-    console.log(result);
     rootNode = await result.json();
   } else {
     let cache = getData();
@@ -32,7 +31,9 @@ const init = async () => {
   rootNode.view = contentView;
   rootNode.canvas = canvas;
   rootNode.rootItem = rootNode;
-  titleInput.value = rootNode.title;
+  if(rootNode.title) {
+    titleInput.value = rootNode.title;
+  }
   item = new Item(rootNode);
   item.drawingLine();
   const handlePopup = target => {
@@ -89,7 +90,7 @@ const saveData = item => {
   localStorage.setItem('memotree', JSON.stringify(result));
 }
 const shareData = async item => {
-  const result = await fetch('/memotree', { 
+  const result = await fetch(':8080/memotree', { 
     method: 'POST', 
     body: item, 
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
