@@ -75,7 +75,7 @@ export default class Item {
       target : this.node.lastElementChild,
       menu : this.menu,
       author : this.author,
-      name : '이름 없음',
+      name : '',
       parent : this,
       view : this.view,
       canvas : this.canvas,
