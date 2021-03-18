@@ -3,21 +3,26 @@ import Contentview from './src/javascript/contentview.js';
 import Item from './src/javascript/item.js';
 
 const init = () => {
+
   const itemTarget = document.getElementById('itemTarget');
   const searchInput = document.getElementById('searchInput');
   const contentview = document.getElementById('contentview');
   const saveButton = document.getElementById('saveButton');
   const contextMenu = new Contextmenu(itemTarget);
   const contentView = new Contentview(contentview);
-  
+  const canvas = document.querySelector('.canvas');
+
   let cache = getData();
   if(!cache) cache = setData();
   const cacheItem = JSON.parse(cache);
+  cacheItem.root = itemTarget;
   cacheItem.target = itemTarget;
   cacheItem.menu = contextMenu;
   cacheItem.view = contentView;
+  cacheItem.canvas = canvas;
+  cacheItem.rootItem = cacheItem;
   const item = new Item(cacheItem);
-
+  item.drawingLine();
   const handlePopup = target => {
     if(!target.closest('.popup')) {
       document.querySelectorAll('.popup').forEach(v => v.classList.add('hidden'));
@@ -40,6 +45,7 @@ const init = () => {
   window.addEventListener('click', ({ target }) => handlePopup(target));
   window.addEventListener('contextmenu', ({ target }) => handlePopup(target));
   saveButton.addEventListener('click', () => saveData(item));
+  
 };
 
 const getData = () => localStorage.getItem('memotree');

@@ -16,6 +16,7 @@ main {
   position: relative;
   &__tag {
     cursor: pointer;
+    position: relative;
     text-align: center;
     height: 3rem;
     line-height: 1.5rem;
@@ -33,6 +34,7 @@ main {
   }
   &__children {
     display: grid;
+
   }
   &-file::after {
     content: "";
@@ -47,11 +49,16 @@ main {
 }
 
 .line {
-  width: 6rem;
+  width: 3rem;
   border-bottom: 1px solid #333;
   position: absolute;
-  left: 12rem;
+  left: -3rem;
   top: 1.5rem;
+}
+
+canvas {
+  position: absolute;
+  z-index: 0;
 }
 
 @keyframes ani-shake {
