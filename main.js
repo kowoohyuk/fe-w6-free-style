@@ -19,7 +19,6 @@ const init = async () => {
   let rootNode = null;
   if(treeId.length > 0) {
     const result = await fetch(`/memotree/${treeId}`);
-    console.log(result);
     rootNode = await result.json();
   } else {
     let cache = getData();
@@ -95,7 +94,7 @@ const shareData = async item => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
   });
   const id = await result.json();
-  alert(id);
+  alert('새로운 주소가 생성되었습니다!');
   location.href = location.origin + '/' + id;
 }
 
