@@ -90,7 +90,7 @@ const saveData = item => {
   localStorage.setItem('memotree', JSON.stringify(result));
 }
 const shareData = async item => {
-  const result = await fetch(':8080/memotree', { 
+  const result = await fetch('/memotree', { 
     method: 'POST', 
     body: item, 
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 

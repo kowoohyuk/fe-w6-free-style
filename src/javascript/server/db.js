@@ -4,6 +4,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
+console.log('*****');
+console.log(`mongodb+srv://admin:${process.env.DB_PASSWORD}@wooluck.c3ppg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+console.log('*****');
 export default mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@wooluck.c3ppg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   function(err) {
     if (err) {
