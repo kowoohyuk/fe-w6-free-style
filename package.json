@@ -2,7 +2,7 @@
   "name": "fe-w6-free-style",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
     "start": "node ./src/javascript/server/server.js",

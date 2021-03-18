@@ -9,8 +9,8 @@ const __dirname = path.resolve();
 const app = express();
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, '/dist')));
-app.set('views', path.join(__dirname + '/dist'));
+app.set('views', path.join(process.cwd() + '/dist'));
+app.use(express.static(path.join(process.cwd(), '/dist')));
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 app.use('/memotree', memotreeRouter);
