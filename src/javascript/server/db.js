@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-export default function connection() {
-  mongoose.connect('mongodb+srv://admin:dngur1202@wooluck.c3ppg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', 
-    function(err) {
-      if (err) {
-        console.error('mongodb connection error', err);
-      }
-      console.log('mongodb connected');
+dotenv.config();
+
+export default mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@wooluck.c3ppg.mongodb.net/memotree?retryWrites=true&w=majority`, 
+  function(err) {
+    if (err) {
+      console.error('mongodb connection error', err);
     }
-  );
-}
+    console.log('mongodb connected');
+  }
+);
