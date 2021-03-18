@@ -99,7 +99,8 @@ export default class Item {
       this.parent.childs = this.parent.childs.filter(v => v !== this);
     }
     this.node.remove();
-    this.parent.drawingLine();
+    this.updatePosition();
+    this.drawingLine();
   }
   toObject() {
     return {
