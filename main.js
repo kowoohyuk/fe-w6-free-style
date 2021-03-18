@@ -2,26 +2,38 @@ import Contextmenu from './src/javascript/contextmenu.js';
 import Contentview from './src/javascript/contentview.js';
 import Item from './src/javascript/item.js';
 
-const init = () => {
+const itemTarget = document.getElementById('itemTarget');
+const searchInput = document.getElementById('searchInput');
+const contentview = document.getElementById('contentview');
+const saveButton = document.getElementById('saveButton');
+const shareButton = document.getElementById('shareButton');
+const titleInput = document.getElementById('titleInput');
 
-  const itemTarget = document.getElementById('itemTarget');
-  const searchInput = document.getElementById('searchInput');
-  const contentview = document.getElementById('contentview');
-  const saveButton = document.getElementById('saveButton');
+const init = async () => {
   const contextMenu = new Contextmenu(itemTarget);
   const contentView = new Contentview(contentview);
   const canvas = document.querySelector('.canvas');
 
-  let cache = getData();
-  if(!cache) cache = setData();
-  const cacheItem = JSON.parse(cache);
-  cacheItem.root = itemTarget;
-  cacheItem.target = itemTarget;
-  cacheItem.menu = contextMenu;
-  cacheItem.view = contentView;
-  cacheItem.canvas = canvas;
-  cacheItem.rootItem = cacheItem;
-  const item = new Item(cacheItem);
+  const treeId = location.pathname.slice(1);
+  let item = null;
+  let rootNode = null;
+  if(treeId.length > 0) {
+    const result = await fetch(`/memotree/${treeId}`);
+    console.log(result);
+    rootNode = await result.json();
+  } else {
+    let cache = getData();
+    if(!cache) cache = setData();
+    rootNode = JSON.parse(cache);
+  }
+  rootNode.root = itemTarget;
+  rootNode.target = itemTarget;
+  rootNode.menu = contextMenu;
+  rootNode.view = contentView;
+  rootNode.canvas = canvas;
+  rootNode.rootItem = rootNode;
+  titleInput.value = rootNode.title;
+  item = new Item(rootNode);
   item.drawingLine();
   const handlePopup = target => {
     if(!target.closest('.popup')) {
@@ -45,7 +57,11 @@ const init = () => {
   window.addEventListener('click', ({ target }) => handlePopup(target));
   window.addEventListener('contextmenu', ({ target }) => handlePopup(target));
   saveButton.addEventListener('click', () => saveData(item));
-  
+  shareButton.addEventListener('click', () => {
+    delete item._id;
+    saveData(item);
+    shareData(getData());
+  });
 };
 
 const getData = () => localStorage.getItem('memotree');
@@ -68,7 +84,19 @@ const saveData = item => {
     result.childs = item.childs.map(v => dfs(v));
     return result;
   };
-  localStorage.setItem('memotree', JSON.stringify(dfs(item)));
+  const result = dfs(item);
+  result.title = titleInput.value;
+  localStorage.setItem('memotree', JSON.stringify(result));
+}
+const shareData = async item => {
+  const result = await fetch('/memotree', { 
+    method: 'POST', 
+    body: item, 
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+  });
+  const id = await result.json();
+  alert(id);
+  location.href = location.origin + '/' + id;
 }
 
 init();
