@@ -3,12 +3,30 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Page Title</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-  <script src='main.js'></script>
+  <title>메모트리</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.scss'>
 </head>
 <body>
-  123
+  <header>
+    <a class="header__logo">
+      로고영역
+    </a>
+    <div class="header__title">
+      <input id="titleInput" type="text" value="2021 프론트엔드 로드맵">
+    </div>
+    <div class="header__button">
+      <input id="searchInput" type="text" placeholder="검색">
+      <button id="shareButton">공유하기</button>
+      <button id="saveButton">저장하기</button>
+    </div>
+  </header>
+  <main>
+    <canvas class="canvas"></canvas>
+    <div class="wrap" id="itemTarget">
+    </div>
+    <div id="contentview" class="content-view"></div>
+  </main>
+  <script type="module" src='main.js'></script>
 </body>
 </html>

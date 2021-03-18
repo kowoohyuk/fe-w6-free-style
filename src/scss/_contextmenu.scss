@@ -1,0 +1,19 @@
+.contextmenu {
+  position: absolute;
+  font-size: 0.9rem;
+  width: 12rem;
+  background-color: #fff;
+  border: 1px solid #999;
+  box-shadow: 5px 5px 5px #d2d2d2;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  z-index: 1;
+  li {
+    transition: background-color 0.15s linear;
+    padding: 0.55rem;
+    cursor: pointer;
+    &:hover {
+      background-color: #999;
+    }
+  }
+}
