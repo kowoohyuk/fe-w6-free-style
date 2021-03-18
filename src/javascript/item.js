@@ -96,11 +96,10 @@ export default class Item {
       v.delete();
     });
     if(this.parent) {
-      this.parent.childs = this.parent.childs.filter(v => {
-        v !== this;
-      });
+      this.parent.childs = this.parent.childs.filter(v => v !== this);
     }
     this.node.remove();
+    this.parent.drawingLine();
   }
   toObject() {
     return {
