@@ -23,6 +23,6 @@ app.get('/:id', (req, res) => {
   res.render('index');
 });
 
-app.listen(8080, function() {
+app.listen(process.env.PORT || 5000, function() {
   console.log('server started, used cors');
 });
