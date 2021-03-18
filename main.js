@@ -96,7 +96,7 @@ const shareData = async item => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
   });
   const id = await result.json();
-  alert(id);
+  alert('새로운 주소가 생성되었습니다!');
   location.href = location.origin + '/' + id;
 }
 

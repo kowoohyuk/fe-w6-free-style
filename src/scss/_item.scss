@@ -15,6 +15,7 @@ main {
   }
   position: relative;
   &__tag {
+    @extend %fw-6;
     cursor: pointer;
     position: relative;
     text-align: center;
