@@ -16,4 +16,18 @@
       background-color: #999;
     }
   }
+  & + .color-picker {
+    position: absolute;
+    z-index: 1;
+    border: 1px solid #999;
+    padding: 0.1rem;
+    background-color: #fff;
+    span {
+      cursor: pointer;
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.1rem;
+    }
+  }
 }
