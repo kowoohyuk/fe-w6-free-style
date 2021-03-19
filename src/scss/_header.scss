@@ -6,7 +6,7 @@ header {
   @extend %header-padding;
   display: grid;
   align-items: center;
-  grid-template-columns: minmax(80px, auto) 2fr minmax(400px, 1fr);
+  grid-template-columns: minmax(80px, auto) 2fr minmax(450px, 1fr);
   height: 5rem;
 }
 
@@ -28,19 +28,19 @@ header {
     padding: 0 1em;
     position: relative;
     input {
-      @extend %fs-16;
+      @extend %fs-14;
       margin-right: 1em;
       padding: 0.5em 1em;
       width: 10rem;
     }
     button {
-      @extend %fs-16;
+      @extend %fs-14;
       background-color: #333;
       border-color: transparent;
       border-radius: 0.2em;
       cursor: pointer;
       color: #fff;
-      margin-right: 1em;
+      margin-right: 0.8em;
       opacity: 0.9;
       padding: 0.5em 1em;
     }
