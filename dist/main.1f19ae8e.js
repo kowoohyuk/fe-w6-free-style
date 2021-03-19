@@ -172,7 +172,7 @@ class Contextmenu {
 
   renderColorPicker() {
     const colors = ['black', 'gray', 'skyblue', 'forestgreen', 'red', 'violet', 'sienna'];
-    this.target.insertAdjacentHTML('beforeend', colors.reduce((acc, cur) => acc += "<span class=\"color\" data-color=\"".concat(cur, "\" style=\"background-color:").concat(cur, "\";></span>"), '<div class="color-picker hidden">') + '</div>');
+    this.target.insertAdjacentHTML('beforeend', colors.reduce((acc, cur) => acc += "<span class=\"color\" data-color=\"".concat(cur, "\" style=\"background-color:").concat(cur, "\";></span>"), '<div class="color-picker popup hidden">') + '</div>');
     this.colorPicker = this.target.lastElementChild;
   }
 
@@ -218,7 +218,7 @@ class Contextmenu {
 
     ;
     this.selected.setStyles();
-    this.hideColorPicker();
+    this.hideFileContext();
   }
 
   deleteItem() {
@@ -253,7 +253,7 @@ class Contextmenu {
 
   showColorPicker(e) {
     const left = Number(this.self.style.left.replace('px', '')) + Number(this.self.getBoundingClientRect().width);
-    const top = Number(this.self.style.top.replace('px', '')) + Number(this.self.childNodes[0].getBoundingClientRect().height * e.target.dataset.index);
+    const top = Number(this.self.style.top.replace('px', '')) + Number(e.target.offsetTop);
     this.colorPicker.dataset.index = e.target.dataset.index;
     this.colorPicker.style.left = left + 'px';
     this.colorPicker.style.top = top + 'px';
@@ -750,7 +750,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56425" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57452" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
