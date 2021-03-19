@@ -33,7 +33,7 @@ export default class Contextmenu {
     this.target.insertAdjacentHTML('beforeend', 
       colors.reduce(
         (acc, cur) => acc += `<span class="color" data-color="${cur}" style="background-color:${cur}";></span>`, 
-        '<div class="color-picker hidden">'
+        '<div class="color-picker popup hidden">'
       ) + '</div>'
     );
     this.colorPicker = this.target.lastElementChild;
@@ -63,7 +63,7 @@ export default class Contextmenu {
       default: break;
     };
     this.selected.setStyles();
-    this.hideColorPicker();
+    this.hideFileContext();
   }
   deleteItem() {
     this.selected.delete();
@@ -92,7 +92,7 @@ export default class Contextmenu {
   }
   showColorPicker(e) {
     const left = Number(this.self.style.left.replace('px', '')) + Number(this.self.getBoundingClientRect().width);
-    const top = Number(this.self.style.top.replace('px', '')) + Number(this.self.childNodes[0].getBoundingClientRect().height * e.target.dataset.index);
+    const top = Number(this.self.style.top.replace('px', '')) + Number(e.target.offsetTop);
     this.colorPicker.dataset.index = e.target.dataset.index;
     this.colorPicker.style.left = left + 'px';
     this.colorPicker.style.top = top + 'px';
